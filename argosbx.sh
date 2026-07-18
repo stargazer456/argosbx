@@ -275,7 +275,7 @@ cat >> "$HOME/agsbx/xr.json" <<EOF
         },
         "xhttpSettings": {
           "host": "",
-          "path": "${uuid}-xh",
+          "path": "${uuid:0:8}-xh",
           "mode": "auto"
         }
       },
@@ -322,7 +322,7 @@ cat >> "$HOME/agsbx/xr.json" <<EOF
         "network": "xhttp",
         "xhttpSettings": {
           "host": "",
-          "path": "${uuid}-vx",
+          "path": "${uuid:0:8}-vx",
           "mode": "auto"
         }
       },
@@ -366,7 +366,7 @@ cat >> "$HOME/agsbx/xr.json" <<EOF
     "security": "tls",
     "xhttpSettings": {
     "mode": "auto",
-    "path": "${uuid}-xu"
+    "path": "${uuid:0:8}-xu"
     },
     "tlsSettings": {
       "alpn": [
@@ -421,7 +421,7 @@ cat >> "$HOME/agsbx/xr.json" <<EOF
     "security": "tls",
     "xhttpSettings": {
     "mode": "auto",
-    "path": "${uuid}-xc"
+    "path": "${uuid:0:8}-xc"
     },
     "tlsSettings": {
      "alpn": [
@@ -478,7 +478,7 @@ cat >> "$HOME/agsbx/xr.json" <<EOF
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "${uuid}-vw"
+          "path": "${uuid:0:8}-vw"
         }
       },
         "sniffing": {
@@ -855,7 +855,7 @@ cat >> "$HOME/agsbx/xr.json" <<EOF
                 "network": "ws",
                 "security": "none",
                 "wsSettings": {
-                  "path": "${uuid}-vm"
+                  "path": "${uuid:0:8}-vm"
             }
         },
             "sniffing": {
@@ -880,7 +880,7 @@ cat >> "$HOME/agsbx/sb.json" <<EOF
         ],
         "transport": {
             "type": "ws",
-            "path": "${uuid}-vm",
+            "path": "${uuid:0:8}-vm",
             "max_early_data":2048,
             "early_data_header_name": "Sec-WebSocket-Protocol"
         }
@@ -1431,7 +1431,7 @@ fi
 if grep xhttp-reality "$HOME/agsbx/xr.json" >/dev/null 2>&1; then
 echo "💣【 Vless-xhttp-reality-enc 】支持ENC加密，节点信息如下："
 port_xh=$(cat "$HOME/agsbx/port_xh")
-vl_xh_link="vless://$uuid@$server_ip:$port_xh?encryption=$enkey&flow=xtls-rprx-vision&security=reality&sni=$ym_vl_re&fp=chrome&pbk=$public_key_x&sid=$short_id_x&type=xhttp&path=$uuid-xh&mode=auto#${sxname}vl-xhttp-reality-enc-$hostname"
+vl_xh_link="vless://$uuid@$server_ip:$port_xh?encryption=$enkey&flow=xtls-rprx-vision&security=reality&sni=$ym_vl_re&fp=chrome&pbk=$public_key_x&sid=$short_id_x&type=xhttp&path=${uuid:0:8}-xh&mode=auto#${sxname}vl-xhttp-reality-enc-$hostname"
 echo "$vl_xh_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_xh_link"
 echo
@@ -1439,14 +1439,14 @@ fi
 if grep vless-xhttp "$HOME/agsbx/xr.json" >/dev/null 2>&1; then
 echo "💣【 Vless-xhttp-enc 】支持ENC加密，节点信息如下："
 port_vx=$(cat "$HOME/agsbx/port_vx")
-vl_vx_link="vless://$uuid@$server_ip:$port_vx?encryption=$enkey&flow=xtls-rprx-vision&type=xhttp&path=$uuid-vx&mode=auto#${sxname}vl-xhttp-enc-$hostname"
+vl_vx_link="vless://$uuid@$server_ip:$port_vx?encryption=$enkey&flow=xtls-rprx-vision&type=xhttp&path=${uuid:0:8}-vx&mode=auto#${sxname}vl-xhttp-enc-$hostname"
 echo "$vl_vx_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_vx_link"
 echo
 if [ -f "$HOME/agsbx/cdnym" ]; then
 echo "💣【 Vless-xhttp-ecn-cdn 】支持ENC加密，节点信息如下："
 echo "可自行更换优选IP域名，如是回源端口需手动修改443或者80系端口"
-vl_vx_cdn_link="vless://$uuid@$cdnip1:$port_vx?encryption=$enkey&flow=xtls-rprx-vision&type=xhttp&host=$xvvmcdnym&path=$uuid-vx&mode=auto#${sxname}vl-xhttp-enc-cdn-$hostname"
+vl_vx_cdn_link="vless://$uuid@$cdnip1:$port_vx?encryption=$enkey&flow=xtls-rprx-vision&type=xhttp&host=$xvvmcdnym&path=${uuid:0:8}-vx&mode=auto#${sxname}vl-xhttp-enc-cdn-$hostname"
 echo "$vl_vx_cdn_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_vx_cdn_link"
 echo
@@ -1455,14 +1455,14 @@ fi
 if grep vless-ws "$HOME/agsbx/xr.json" >/dev/null 2>&1; then
 echo "💣【 Vless-ws-enc 】支持ENC加密，节点信息如下："
 port_vw=$(cat "$HOME/agsbx/port_vw")
-vl_vw_link="vless://$uuid@$server_ip:$port_vw?encryption=$enkey&flow=xtls-rprx-vision&type=ws&path=$uuid-vw#${sxname}vl-ws-enc-$hostname"
+vl_vw_link="vless://$uuid@$server_ip:$port_vw?encryption=$enkey&flow=xtls-rprx-vision&type=ws&path=${uuid:0:8}-vw#${sxname}vl-ws-enc-$hostname"
 echo "$vl_vw_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_vw_link"
 echo
 if [ -f "$HOME/agsbx/cdnym" ]; then
 echo "💣【 Vless-ws-enc-cdn 】支持ENC加密，节点信息如下："
 echo "可自行更换优选IP域名，如是回源端口需手动修改443或者80系端口"
-vl_vw_cdn_link="vless://$uuid@$cdnip1:$port_vw?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$xvvmcdnym&path=$uuid-vw#${sxname}vl-ws-enc-cdn-$hostname"
+vl_vw_cdn_link="vless://$uuid@$cdnip1:$port_vw?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$xvvmcdnym&path=${uuid:0:8}-vw#${sxname}vl-ws-enc-cdn-$hostname"
 echo "$vl_vw_cdn_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_vw_cdn_link"
 echo
@@ -1497,7 +1497,7 @@ echo "- ${sxname}Xhttp-TCP-$hostname"
 if ! grep -A 26 'xhttp-h23' "$HOME/agsbx/xr.json" | grep -q 'ygkkkca' >/dev/null 2>&1; then
 sha=$(cat "$HOME/agsbx/SHA256.txt")
 echo "💣【 Vless-xhttp-tls-TCP 】节点信息如下："
-vl_xc2_link="vless://$uuid@$add:$port_xc?encryption=none&security=tls&sni=$sni&insecure=0&allowInsecure=0&hpkp=$sha&pcs=$sha&type=xhttp&path=$uuid-xc&mode=auto#${sxname}Vless-xhttp-tls-TCP-$hostname"
+vl_xc2_link="vless://$uuid@$add:$port_xc?encryption=none&security=tls&sni=$sni&insecure=0&allowInsecure=0&hpkp=$sha&pcs=$sha&type=xhttp&path=${uuid:0:8}-xc&mode=auto#${sxname}Vless-xhttp-tls-TCP-$hostname"
 echo "$vl_xc2_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_xc2_link"
 xhttpclmh
@@ -1507,13 +1507,13 @@ case "$port_xc" in
 443|2053|2083|2087|2096|8443)
 echo "💣【 Vless-xhttp-tls-CDN-TCP 】节点信息如下："
 echo "可自行更换优选IP域名"
-vl_xc2_link="vless://$uuid@$cdnip1:$port_xc?encryption=none&security=tls&sni=$sni&insecure=0&allowInsecure=0&type=xhttp&path=$uuid-xc&mode=auto#${sxname}Vless-xhttp-tls-CDN-TCP-$hostname"
+vl_xc2_link="vless://$uuid@$cdnip1:$port_xc?encryption=none&security=tls&sni=$sni&insecure=0&allowInsecure=0&type=xhttp&path=${uuid:0:8}-xc&mode=auto#${sxname}Vless-xhttp-tls-CDN-TCP-$hostname"
 echo "$vl_xc2_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_xc2_link"
 echo
 echo "💣【 Vless-xhttp-tls-CDN-UDP 】节点信息如下："
 echo "可自行更换优选IP域名"
-vl_xc3_link="vless://$uuid@$cdnip2:$port_xc?encryption=none&security=tls&sni=$sni&alpn=h3&insecure=0&allowInsecure=0&type=xhttp&path=$uuid-xc&mode=auto#${sxname}Vless-xhttp-tls-CDN-UDP-$hostname"
+vl_xc3_link="vless://$uuid@$cdnip2:$port_xc?encryption=none&security=tls&sni=$sni&alpn=h3&insecure=0&allowInsecure=0&type=xhttp&path=${uuid:0:8}-xc&mode=auto#${sxname}Vless-xhttp-tls-CDN-UDP-$hostname"
 echo "$vl_xc3_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_xc3_link"
 echo
@@ -1559,7 +1559,7 @@ echo "- ${sxname}Xhttp-CDN-UDP-$hostname"
 ;;
 *)
 echo "💣【 Vless-xhttp-tls-TCP 】节点信息如下："
-vl_xc1_link="vless://$uuid@$add:$port_xc?encryption=none&security=tls&sni=$sni&insecure=0&allowInsecure=0&type=xhttp&path=$uuid-xc&mode=auto#${sxname}Vless-xhttp-tls-TCP-$hostname"
+vl_xc1_link="vless://$uuid@$add:$port_xc?encryption=none&security=tls&sni=$sni&insecure=0&allowInsecure=0&type=xhttp&path=${uuid:0:8}-xc&mode=auto#${sxname}Vless-xhttp-tls-TCP-$hostname"
 echo "$vl_xc1_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_xc1_link"
 xhttpclmh
@@ -1567,7 +1567,7 @@ xhttpclmh
 esac
 else
 echo "💣【 Vless-xhttp-tls-TCP 】节点信息如下："
-vl_xc1_link="vless://$uuid@$add:$port_xc?encryption=none&security=tls&sni=$sni&insecure=0&allowInsecure=0&type=xhttp&path=$uuid-xc&mode=auto#${sxname}Vless-xhttp-tls-TCP-$hostname"
+vl_xc1_link="vless://$uuid@$add:$port_xc?encryption=none&security=tls&sni=$sni&insecure=0&allowInsecure=0&type=xhttp&path=${uuid:0:8}-xc&mode=auto#${sxname}Vless-xhttp-tls-TCP-$hostname"
 echo "$vl_xc1_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_xc1_link"
 xhttpclmh
@@ -1582,7 +1582,7 @@ port_xu=$(cat "$HOME/agsbx/port_xu")
 if ! grep -A 26 'xhttp-h3' "$HOME/agsbx/xr.json" | grep -q 'ygkkkca' >/dev/null 2>&1; then
 sha=$(cat "$HOME/agsbx/SHA256.txt")
 fi
-vl_xu_link="vless://$uuid@$add:$port_xu?encryption=none&security=tls&sni=$sni&alpn=h3&insecure=0&allowInsecure=0&hpkp=$sha&pcs=$sha&type=xhttp&path=$uuid-xu&mode=auto#${sxname}Vless-xhttp-tls-UDP-$hostname"
+vl_xu_link="vless://$uuid@$add:$port_xu?encryption=none&security=tls&sni=$sni&alpn=h3&insecure=0&allowInsecure=0&hpkp=$sha&pcs=$sha&type=xhttp&path=${uuid:0:8}-xu&mode=auto#${sxname}Vless-xhttp-tls-UDP-$hostname"
 echo "$vl_xu_link" >> "$HOME/agsbx/jhsub.txt"
 echo "$vl_xu_link"
 echo
@@ -2192,9 +2192,9 @@ echo "- ${sxname}vmess-ws-tls-argo-$hostname-443"
 echo "- ${sxname}vmess-ws-argo-$hostname-80"
 }
 elif [ "$vlvm" = "Vless" ]; then
-vwatls_link1="vless://$uuid@$cdnip1:443?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=$uuid-vw&security=tls&sni=$argodomain&fp=chrome&insecure=0&allowInsecure=0#${sxname}vless-ws-tls-argo-enc-vision-$hostname"
+vwatls_link1="vless://$uuid@$cdnip1:443?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=${uuid:0:8}-vw&security=tls&sni=$argodomain&fp=chrome&insecure=0&allowInsecure=0#${sxname}vless-ws-tls-argo-enc-vision-$hostname"
 echo "$vwatls_link1" >> "$HOME/agsbx/jhsub.txt"
-vwa_link2="vless://$uuid@$cdnip2:80?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=$uuid-vw&security=none#${sxname}vless-ws-argo-enc-vision-$hostname"
+vwa_link2="vless://$uuid@$cdnip2:80?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=${uuid:0:8}-vw&security=none#${sxname}vless-ws-argo-enc-vision-$hostname"
 echo "$vwa_link2" >> "$HOME/agsbx/jhsub.txt"
 fi
 sbtk=$(cat "$HOME/agsbx/sbargotoken.log" 2>/dev/null)
