@@ -1,0 +1,49 @@
+name: Correct argosbx.sh Syntax
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  fix-and-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Modify argosbx.sh content
+        run: |
+          # 1. 修改 JSON 部分 (原本就有花括号，只需添加 :0:8)
+          # 将 "path": "${uuid}- 替换为 "path": "${uuid:0:8}-
+          sed -i 's/"path": "${uuid}-/"path": "${uuid:0:8}-/g' argosbx.sh
+          
+          # 2. 【重点修正】修改 path 变量赋值
+          # 必须加上花括号 {} 才能让截取生效
+          # 将 path=$uuid- 替换为 path=${uuid:0:8}-
+          sed -i 's/path=$uuid-/path=${uuid:0:8}-/g' argosbx.sh
+          
+          # 3. 修改域名
+          sed -i 's/yg\$(cfip)\.ygkkk\.dpdns\.org/store.ubi.com/g' argosbx.sh
+          
+          # (可选) 打印修改后的关键行进行检查
+          echo "Checking modifications:"
+          grep "path=" argosbx.sh || true
+          grep '"path":' argosbx.sh || true
+          grep "store.ubi.com" argosbx.sh || true
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet argosbx.sh; then
+            echo "✅ No changes detected."
+          else
+            echo "⚠️ Applying fixes..."
+            git add argosbx.sh
+            git commit -m "Fix argosbx.sh: Use \${uuid:0:8} syntax for substring and update domain"
+            git push
+          fi
